@@ -4,7 +4,7 @@
  * - Refresh Token은 백엔드에서 HttpOnly Cookie로 설정됨
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://midas-back.fly.dev';
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://midas-back.fly.dev').replace(/\/+$/, '');
 
 /**
  * 로그인 API
@@ -13,14 +13,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://midas-back.fly.
  */
 export async function loginAPI(email: string, password: string) {
   // 가능한 로그인 엔드포인트 목록 (우선순위 순)
-  const loginEndpoints = [
-    '/api/auth/login',
-    '/auth/login',
-    '/api/users/login',
-    '/users/login',
-    '/api/login',
-    '/login',
-  ];
+  const loginEndpoints = ['/auth/login'];
 
   let lastError: Error | null = null;
 
