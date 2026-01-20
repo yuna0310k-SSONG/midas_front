@@ -71,10 +71,11 @@ export default function Header() {
                   onMouseLeave={() => setHoveredMenu(null)}
                 >
                   {menu.children ? (
-                    <Link
-                      href={parentHref}
-                      className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
-                    >
+                  <Link
+                    href={parentHref}
+                    className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
                       {menu.title}
                     </Link>
                   ) : (

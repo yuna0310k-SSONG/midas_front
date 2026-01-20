@@ -49,8 +49,7 @@ export default function WhyChooseUs() {
           ].map((item, idx) => (
             <div
               key={item.title}
-              className={`relative bg-white rounded-2xl px-10 py-12 shadow-sm transition-all duration-700 ${
-                isVisible
+              className={`relative bg-white rounded-xl px-8 py-10 border border-gray-100 transition-all duration-500 ${                isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-6'
               }`}

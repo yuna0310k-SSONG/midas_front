@@ -93,7 +93,10 @@ export default function Home() {
                     >
                       {/* 메인 타이틀 (큰 글씨) */}
                       <div className="mb-4 lg:mb-6">
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight">
+                        <h1
+                          className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight"
+                          style={{ wordBreak: "keep-all" }}
+                        >
                           {slide.title}
                         </h1>
                       </div>
@@ -107,14 +110,20 @@ export default function Home() {
 
                       {/* 서브타이틀 */}
                       <div className="mb-2 lg:mb-3">
-                        <p className="text-base sm:text-lg lg:text-xl text-white font-medium">
+                        <p
+                          className="text-lg sm:text-xl lg:text-2xl text-white font-medium"
+                          style={{ wordBreak: "keep-all" }}
+                        >
                           {slide.subtitle}
                         </p>
                       </div>
 
                       {/* 태그 텍스트 */}
                       <div className="mb-2 lg:mb-3">
-                        <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed">
+                        <p
+                          className="text-base sm:text-lg lg:text-xl text-white leading-relaxed"
+                          style={{ wordBreak: "keep-all" }}
+                        >
                           {slide.tag}
                         </p>
                       </div>
@@ -122,7 +131,10 @@ export default function Home() {
                       {/* 추가 텍스트 (있는 경우) */}
                       {slide.extraText && (
                         <div>
-                          <p className="text-sm sm:text-base lg:text-lg text-white leading-relaxed">
+                          <p
+                            className="text-base sm:text-lg lg:text-xl text-white leading-relaxed"
+                            style={{ wordBreak: "keep-all" }}
+                          >
                             {slide.extraText}
                           </p>
                         </div>

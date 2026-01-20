@@ -76,11 +76,15 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <span className="mr-2">📧</span>
-                <span>info@midasclinic.com</span>
+                <span>albotalbot@daum.net</span>
               </li>
               <li className="flex items-center">
                 <span className="mr-2">🕒</span>
-                <span>평일 10:30 - 22:30</span>
+                <span>
+                  월·화·목·금 10:30~20:30
+                  <br />
+                  수 14:00~20:30 / 토 09:30~15:00
+                </span>
               </li>
             </ul>
           </div>
