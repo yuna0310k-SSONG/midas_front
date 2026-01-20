@@ -86,7 +86,7 @@ export default function Home() {
                     }`}
                   >
                     <div
-                      className={`px-24 py-8 lg:px-32 lg:py-12 w-full lg:w-2/5 ${
+                      className={`px-12 py-4 lg:px-32 lg:py-12 w-full lg:w-2/5 ${
                         slide.textPosition === "right" ? "text-right" : "text-left"
                       }`}
                       style={{ fontFamily: 'GangwonEducationSaeum, sans-serif' }}

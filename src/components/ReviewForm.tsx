@@ -153,7 +153,7 @@ export default function ReviewForm({
         console.error("Supabase 업로드 에러 상세:", {
           error,
           message: error.message,
-          statusCode: error.statusCode,
+          errorDetails: error,
           fileName
         });
         
@@ -166,7 +166,7 @@ export default function ReviewForm({
           errorMessage = `Storage 권한 오류입니다. Supabase Dashboard에서 Storage 정책을 확인하세요.`;
         } else if (error.message?.includes("Bucket not found")) {
           errorMessage = `'review-images' 버킷이 존재하지 않습니다. Supabase Dashboard에서 버킷을 생성하세요.`;
-        } else if (error.statusCode === 401 || error.statusCode === 403) {
+        } else if (error.message?.includes("Unauthorized") || error.message?.includes("Forbidden")) {
           errorMessage = `Storage 접근 권한이 없습니다. Supabase Storage 정책을 확인하세요.`;
         }
         
@@ -180,14 +180,9 @@ export default function ReviewForm({
       console.log("업로드 성공 데이터:", data);
 
       // Public URL 생성
-      const { data: urlData, error: urlError } = supabase.storage
+      const { data: urlData } = supabase.storage
         .from("review-images")
         .getPublicUrl(fileName);
-
-      if (urlError) {
-        console.error("Public URL 생성 에러:", urlError);
-        throw new Error(`이미지는 업로드되었지만 URL 생성에 실패했습니다: ${urlError.message}`);
-      }
 
       if (!urlData || !urlData.publicUrl) {
         throw new Error("Public URL을 생성할 수 없습니다.");
