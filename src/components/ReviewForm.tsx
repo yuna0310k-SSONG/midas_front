@@ -118,7 +118,8 @@ export default function ReviewForm({
           const formDataToSend = new FormData();
           formDataToSend.append('name', formData.name);
           formDataToSend.append('content', formData.content);
-          formDataToSend.append('rating', formData.rating.toString());
+          // 백엔드가 숫자를 기대하므로 숫자로 변환하여 전송
+          formDataToSend.append('rating', String(Number(formData.rating)));
           
           if (formData.before_image) {
             formDataToSend.append('before_image', formData.before_image);
@@ -157,7 +158,9 @@ export default function ReviewForm({
         const formDataToSend = new FormData();
         formDataToSend.append('name', formData.name);
         formDataToSend.append('content', formData.content);
-        formDataToSend.append('rating', formData.rating.toString());
+        // 백엔드가 숫자를 기대하므로 숫자로 변환하여 전송
+        // FormData는 문자열로 변환되지만, 백엔드에서 파싱할 수 있도록 숫자 문자열로 전송
+        formDataToSend.append('rating', String(Number(formData.rating)));
         
         if (formData.before_image) {
           formDataToSend.append('before_image', formData.before_image);
