@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import api from "@/lib/api";
 
 interface User {
+  id?: string;
   name: string;
   email?: string;
 }
@@ -32,25 +33,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     try {
       // API 문서: https://midas-back.fly.dev/api#/
-      // 일반적인 로그인 엔드포인트 시도
+      // 가장 일반적인 엔드포인트만 먼저 시도 (로그인 시간 단축)
       let response;
-      const possibleEndpoints = [
+      const primaryEndpoints = [
         "/api/auth/login",
-        "/api/users/login",
-        "/api/user/login",
-        "/api/login",
         "/auth/login",
-        "/users/login",
-        "/user/login",
-        "/login",
+        "/api/users/login",
       ];
 
       let lastError: any;
-      let triedEndpoints: string[] = [];
       
-      for (const endpoint of possibleEndpoints) {
+      // 주요 엔드포인트만 빠르게 시도
+      for (const endpoint of primaryEndpoints) {
         try {
-          triedEndpoints.push(endpoint);
           response = await api.post(endpoint, {
             email,
             password,
@@ -65,16 +60,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             throw err;
           }
           // 404면 다음 엔드포인트 시도
-          console.log(`Endpoint ${endpoint} returned 404, trying next...`);
           continue;
         }
       }
 
       if (!response) {
-        console.error("All login endpoints failed. Tried:", triedEndpoints);
         const errorMsg = lastError?.response?.data?.message || 
                         lastError?.message || 
-                        `로그인 엔드포인트를 찾을 수 없습니다. 시도한 엔드포인트: ${triedEndpoints.join(", ")}`;
+                        "로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.";
         throw new Error(errorMsg);
       }
 
@@ -90,7 +83,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw new Error("사용자 이름을 가져올 수 없습니다.");
       }
       
+      // 사용자 ID 추출
+      const userId = data.id || data.userId || data.user?.id || data.user?.userId;
+      
       const userData = { 
+        id: userId,
         name: userName, 
         email: data.email || data.user?.email || email 
       };
@@ -102,6 +99,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (accessToken) {
         localStorage.setItem("token", accessToken);
         console.log("Access token saved to localStorage");
+        
+        // 토큰에서 ID 추출 시도 (JWT payload)
+        if (!userId) {
+          try {
+            const payload = JSON.parse(atob(accessToken.split('.')[1]));
+            userData.id = payload.sub || payload.userId || payload.id;
+          } catch (e) {
+            console.error("토큰에서 ID 추출 실패:", e);
+          }
+        }
       }
       
       // Refresh Token은 쿠키에 저장 (7일 만료)

@@ -181,7 +181,9 @@ export default function Home() {
             건강한 몸과 아름다운 얼굴을 위한 첫걸음을 시작하세요.
           </p>
           <Link
-            href="#"
+            href="https://m.booking.naver.com/booking/13/bizes/670877?theme=place&entry=pll&lang=ko&area=pll"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block px-8 py-3 bg-[#e3ba75] text-[#2d2d2d] font-semibold rounded-md hover:bg-[#d4a865] transition-colors duration-200"
           >
             온라인 예약하기

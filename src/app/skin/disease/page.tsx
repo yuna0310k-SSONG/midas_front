@@ -1,0 +1,62 @@
+"use client";
+
+import Link from "next/link";
+
+export default function SkinDiseasePage() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <h1 className="text-4xl font-bold text-[#2d2d2d] mb-6">피부질환 치료</h1>
+          
+          <div className="prose max-w-none">
+            <p className="text-lg text-gray-700 mb-6">
+              다양한 피부질환을 한방 치료로 근본적으로 개선합니다.
+            </p>
+
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl font-semibold text-[#8c6b3f] mb-3">주요 치료 분야</h2>
+                <ul className="list-disc list-inside text-gray-600 space-y-2">
+                  <li>아토피 피부염</li>
+                  <li>습진</li>
+                  <li>두드러기</li>
+                  <li>여드름</li>
+                  <li>건선</li>
+                  <li>색소 침착 및 기미</li>
+                </ul>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-semibold text-[#8c6b3f] mb-3">치료 방법</h2>
+                <ul className="list-disc list-inside text-gray-600 space-y-2">
+                  <li>체질 분석을 통한 맞춤 한약 처방</li>
+                  <li>외용 한약제 및 연고 처방</li>
+                  <li>뷰티 약침 치료</li>
+                  <li>식이 상담 및 생활 습관 개선</li>
+                  <li>피부 관리 교육</li>
+                </ul>
+              </div>
+
+              <div>
+                <h2 className="text-2xl font-semibold text-[#8c6b3f] mb-3">치료 특징</h2>
+                <p className="text-gray-600">
+                  피부질환의 근본 원인인 체질과 면역 상태를 개선함으로써 장기적으로 재발을 방지하고 건강한 피부를 유지할 수 있습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <Link
+              href="/"
+              className="inline-block px-6 py-3 bg-[#e3ba75] text-[#2d2d2d] font-semibold rounded-md hover:bg-[#d4a865] transition-colors duration-200"
+            >
+              홈으로 돌아가기
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

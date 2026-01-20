@@ -24,6 +24,22 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 모바일 메뉴가 열렸을 때 배경 페이지 스크롤 방지
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // 메뉴가 열렸을 때 body 스크롤 막기
+      document.body.style.overflow = 'hidden';
+    } else {
+      // 메뉴가 닫혔을 때 body 스크롤 복원
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      // 컴포넌트 언마운트 시 스크롤 복원
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <header className={`${isScrolled ? 'bg-white/50 backdrop-blur-md' : 'bg-white'} text-[#2d2d2d] sticky top-0 z-50 shadow-md transition-all duration-300`}>
       <div className="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,16 +65,31 @@ export default function Header() {
                 onMouseEnter={() => setHoveredMenu(index)}
                 onMouseLeave={() => setHoveredMenu(null)}
               >
-                <button className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap">
-                  {menu.title}
-                </button>
+                {menu.children ? (
+                  <button className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap">
+                    {menu.title}
+                  </button>
+                ) : (
+                  <Link
+                    href={menu.href || "#"}
+                    className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
+                  >
+                    {menu.title}
+                  </Link>
+                )}
                 {menu.children && hoveredMenu === index && (
-                  <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-md shadow-xl py-2 z-[60] animate-in fade-in slide-in-from-top-2 duration-200 border border-gray-200">
+                  <div 
+                    className="absolute top-full left-0 mt-1 w-56 bg-white rounded-md shadow-xl py-2 z-[60] animate-in fade-in slide-in-from-top-2 duration-200 border border-gray-200"
+                    onMouseEnter={() => setHoveredMenu(index)}
+                    onMouseLeave={() => setHoveredMenu(null)}
+                  >
                     {menu.children.map((child, childIndex) => (
                       <Link
                         key={childIndex}
                         href={child.href || "#"}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#e3ba75] transition-colors duration-150 whitespace-nowrap"
+                        target={child.href?.startsWith('http') ? '_blank' : undefined}
+                        rel={child.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                       >
                         {child.title}
                       </Link>
@@ -145,7 +176,7 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <nav className="2xl:hidden pb-4 animate-in slide-in-from-top duration-200 border-t border-gray-200 mt-2 pt-4">
+          <nav className="2xl:hidden pb-4 animate-in slide-in-from-top duration-200 border-t border-gray-200 mt-2 pt-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
             {/* 사용자 정보 (모바일 메뉴 안에 표시) */}
             <div className="px-4 py-3 border-b border-gray-300 mb-2 flex justify-end">
               {isAuthenticated && user && user.name ? (
@@ -202,22 +233,34 @@ export default function Header() {
             {/* 메뉴 항목들 */}
             {menuData.map((menu, index) => (
               <div key={index} className="border-b border-gray-300">
-                <div className="px-4 py-3 font-medium text-[#e3ba75]">
-                  {menu.title}
-                </div>
-                {menu.children && (
-                  <div className="pl-6 pb-2">
-                    {menu.children.map((child, childIndex) => (
-                      <Link
-                        key={childIndex}
-                        href={child.href || "#"}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:text-[#e3ba75] hover:bg-gray-100 rounded-md transition-colors duration-150"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {child.title}
-                      </Link>
-                    ))}
-                  </div>
+                {menu.children ? (
+                  <>
+                    <div className="px-4 py-3 font-medium text-[#e3ba75]">
+                      {menu.title}
+                    </div>
+                    <div className="pl-6 pb-2">
+                      {menu.children.map((child, childIndex) => (
+                        <Link
+                          key={childIndex}
+                          href={child.href || "#"}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:text-[#e3ba75] hover:bg-gray-100 rounded-md transition-colors duration-150"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          target={child.href?.startsWith('http') ? '_blank' : undefined}
+                          rel={child.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        >
+                          {child.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    href={menu.href || "#"}
+                    className="block px-4 py-3 font-medium text-[#e3ba75] hover:bg-gray-100 rounded-md transition-colors duration-150"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {menu.title}
+                  </Link>
                 )}
               </div>
             ))}

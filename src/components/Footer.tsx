@@ -25,7 +25,9 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="#"
+                  href="https://m.booking.naver.com/booking/13/bizes/670877?theme=place&entry=pll&lang=ko&area=pll"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-300 hover:text-[#e3ba75] transition-colors duration-200"
                 >
                   진료안내 및 예약

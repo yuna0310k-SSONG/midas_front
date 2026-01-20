@@ -5,6 +5,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 5000, // 5초 타임아웃
 });
 
 // 요청 인터셉터
