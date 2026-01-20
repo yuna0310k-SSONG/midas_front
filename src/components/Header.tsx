@@ -11,6 +11,9 @@ export default function Header() {
   const [hoveredMenu, setHoveredMenu] = useState<number | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const { user, isAuthenticated, logout, isAdmin } = useAuth();
+  const toggleMenu = (index: number) => {
+    setHoveredMenu((prev) => (prev === index ? null : index));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,7 +69,11 @@ export default function Header() {
                 onMouseLeave={() => setHoveredMenu(null)}
               >
                 {menu.children ? (
-                  <button className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap">
+                  <button
+                    type="button"
+                    onClick={() => toggleMenu(index)}
+                    className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
+                  >
                     {menu.title}
                   </button>
                 ) : (
