@@ -132,11 +132,8 @@ export default function ReviewForm({
             formDataToSend.append('after_image_url', review.after_image_url);
           }
 
-          await api.put(`/reviews/${review.id}`, formDataToSend, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
+          // FormData 전송 시 Content-Type은 자동 설정
+          await api.put(`/reviews/${review.id}`, formDataToSend);
         } else {
           // 이미지 파일이 없으면 JSON으로 전송 (기존 URL 유지)
           const updateData: any = {
@@ -169,17 +166,38 @@ export default function ReviewForm({
           formDataToSend.append('after_image', formData.after_image);
         }
 
-        await api.post('/reviews', formDataToSend, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
+        // FormData 전송 시 Content-Type은 자동 설정 (boundary 포함)
+        // 명시적으로 설정하면 boundary가 없어서 오류 발생 가능
+        await api.post('/reviews', formDataToSend);
       }
 
       onSuccess();
     } catch (error: any) {
       console.error("리뷰 저장 실패:", error);
-      const errorMessage = error.response?.data?.message || error.message || "리뷰 저장에 실패했습니다.";
+      console.error("에러 응답:", error.response?.data);
+      console.error("에러 상태:", error.response?.status);
+      
+      // 상세한 에러 메시지 추출
+      let errorMessage = "리뷰 저장에 실패했습니다.";
+      
+      if (error.response?.data) {
+        const errorData = error.response.data;
+        errorMessage = errorData.message || errorData.error || errorMessage;
+        
+        // 필드별 에러가 있으면 표시
+        if (errorData.details) {
+          const details = errorData.details;
+          if (typeof details === 'object') {
+            const fieldErrors = Object.entries(details)
+              .map(([field, reason]) => `${field}: ${reason}`)
+              .join('\n');
+            errorMessage = `${errorMessage}\n\n${fieldErrors}`;
+          }
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
       alert(errorMessage);
     } finally {
       setIsSubmitting(false);
