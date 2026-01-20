@@ -8,9 +8,10 @@ import { Review } from "@/types/review";
 import ReviewCard from "@/components/ReviewCard";
 import ReviewForm from "@/components/ReviewForm";
 import Toast from "@/components/Toast";
+import { approveReview } from "@/lib/review-api";
 
 export default function ReviewPage() {
-  const { user: authUser } = useAuth();
+  const { user: authUser, isAdmin } = useAuth();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -120,17 +121,25 @@ export default function ReviewPage() {
   };
 
   // 리뷰 목록 로드 (백엔드 API 사용)
+  // admin은 모든 리뷰, 일반 사용자는 승인된 리뷰만
   const loadReviews = async () => {
     try {
       setLoading(true);
       const response = await api.get("/reviews", {
         params: {
-          is_approved: true,
+          is_approved: isAdmin ? undefined : true, // admin은 모든 리뷰, 일반 사용자는 승인된 리뷰만
           order: "created_at.desc",
         },
       });
 
-      setReviews(response.data.data || []);
+      const loadedReviews = response.data.data || response.data || [];
+      
+      // 일반 사용자는 승인된 리뷰만 필터링 (백엔드에서 필터링 안 할 경우 대비)
+      const filteredReviews = isAdmin 
+        ? loadedReviews 
+        : loadedReviews.filter((review: Review) => review.is_approved);
+      
+      setReviews(filteredReviews);
     } catch (error: any) {
       console.error("리뷰 로드 실패:", error);
       showToast(
@@ -218,6 +227,34 @@ export default function ReviewPage() {
     }
   };
 
+  // 리뷰 승인 (admin 전용)
+  const handleApproveReview = async (reviewId: string) => {
+    if (!isAdmin) {
+      showToast("권한이 없습니다.", "error");
+      return;
+    }
+
+    if (!confirm("이 리뷰를 승인하시겠습니까?")) {
+      return;
+    }
+
+    try {
+      await approveReview(reviewId);
+      showToast("리뷰가 승인되었습니다.", "success");
+      loadReviews(); // 목록 새로고침
+    } catch (error: any) {
+      console.error("리뷰 승인 실패:", error);
+      const errorMessage = error.response?.data?.message || error.message || "리뷰 승인에 실패했습니다.";
+      
+      // 403 Forbidden 에러 처리
+      if (error.response?.status === 403) {
+        showToast("리뷰 승인 권한이 없습니다.", "error");
+      } else {
+        showToast(errorMessage, "error");
+      }
+    }
+  };
+
   // 리뷰 작성/수정 완료
   const handleReviewSuccess = () => {
     setShowForm(false);
@@ -274,12 +311,15 @@ export default function ReviewPage() {
                 </>
               )}
             </div>
-            <button
-              onClick={handleWriteReview}
-              className="px-6 py-3 bg-[#e3ba75] text-[#2d2d2d] font-semibold rounded-md hover:bg-[#d4a865] transition-colors duration-200"
-            >
-              {currentUser ? "리뷰 작성하기" : "로그인 후 리뷰 작성"}
-            </button>
+            <div className="flex items-center space-x-3">
+              
+              <button
+                onClick={handleWriteReview}
+                className="px-6 py-3 bg-[#e3ba75] text-[#2d2d2d] font-semibold rounded-md hover:bg-[#d4a865] transition-colors duration-200"
+              >
+                {currentUser ? "리뷰 작성하기" : "로그인 후 리뷰 작성"}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -382,6 +422,8 @@ export default function ReviewPage() {
           <div className="space-y-6">
             {reviews.map((review) => (
               <ReviewCard
+                isAdmin={isAdmin}
+                onApprove={handleApproveReview}
                 key={review.id}
                 review={review}
                 currentUserId={currentUser?.id}

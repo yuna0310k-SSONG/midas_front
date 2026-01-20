@@ -8,15 +8,19 @@ import { ko } from "date-fns/locale/ko";
 interface ReviewCardProps {
   review: Review;
   currentUserId?: string;
+  isAdmin?: boolean; // admin 여부
   onEdit?: (review: Review) => void;
   onDelete?: (reviewId: string) => void;
+  onApprove?: (reviewId: string) => void; // 승인 핸들러
 }
 
 export default function ReviewCard({
   review,
   currentUserId,
+  isAdmin = false,
   onEdit,
   onDelete,
+  onApprove,
 }: ReviewCardProps) {
   const isOwner = currentUserId && review.user_id === currentUserId;
 
@@ -51,27 +55,47 @@ export default function ReviewCard({
           </span>
         </div>
 
-        {/* 수정/삭제 버튼 (본인 리뷰만) */}
-        {isOwner && (onEdit || onDelete) && (
-          <div className="flex space-x-2">
-            {onEdit && (
-              <button
-                onClick={() => onEdit(review)}
-                className="px-3 py-1 text-sm text-[#8c6b3f] hover:bg-gray-100 rounded-md transition-colors"
-              >
-                수정
-              </button>
-            )}
-            {onDelete && (
-              <button
-                onClick={() => onDelete(review.id)}
-                className="px-3 py-1 text-sm text-red-500 hover:bg-red-50 rounded-md transition-colors"
-              >
-                삭제
-              </button>
-            )}
-          </div>
-        )}
+        {/* 버튼 영역 */}
+        <div className="flex space-x-2">
+          {/* 수정/삭제 버튼 (본인 리뷰만) */}
+          {isOwner && (onEdit || onDelete) && (
+            <>
+              {onEdit && (
+                <button
+                  onClick={() => onEdit(review)}
+                  className="px-3 py-1 text-sm text-[#8c6b3f] hover:bg-gray-100 rounded-md transition-colors"
+                >
+                  수정
+                </button>
+              )}
+              {onDelete && (
+                <button
+                  onClick={() => onDelete(review.id)}
+                  className="px-3 py-1 text-sm text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                >
+                  삭제
+                </button>
+              )}
+            </>
+          )}
+          
+          {/* 승인 버튼 (admin만, 미승인 리뷰에만 표시) */}
+          {isAdmin && !review.is_approved && onApprove && (
+            <button
+              onClick={() => onApprove(review.id)}
+              className="px-3 py-1 text-sm bg-green-500 text-white hover:bg-green-600 rounded-md transition-colors font-medium"
+            >
+              승인
+            </button>
+          )}
+          
+          {/* 승인 상태 표시 (admin에게만) */}
+          {isAdmin && review.is_approved && (
+            <span className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded-md font-medium">
+              승인됨
+            </span>
+          )}
+        </div>
       </div>
 
       {/* 리뷰 내용 */}
@@ -85,13 +109,23 @@ export default function ReviewCard({
             시술 전
           </div>
           <div className="relative w-full h-64 md:h-80 bg-gray-200 rounded-lg overflow-hidden">
-            <Image
-              src={review.before_image_url}
-              alt="시술 전"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+            {review.before_image_url ? (
+              <Image
+                src={review.before_image_url}
+                alt="시술 전"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                unoptimized={true}
+                onError={(e) => {
+                  console.error("이미지 로드 실패:", review.before_image_url);
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-400">
+                이미지 없음
+              </div>
+            )}
           </div>
         </div>
 
@@ -101,13 +135,23 @@ export default function ReviewCard({
             시술 후
           </div>
           <div className="relative w-full h-64 md:h-80 bg-gray-200 rounded-lg overflow-hidden">
-            <Image
-              src={review.after_image_url}
-              alt="시술 후"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
+            {review.after_image_url ? (
+              <Image
+                src={review.after_image_url}
+                alt="시술 후"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                unoptimized={true}
+                onError={(e) => {
+                  console.error("이미지 로드 실패:", review.after_image_url);
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-gray-400">
+                이미지 없음
+              </div>
+            )}
           </div>
         </div>
       </div>

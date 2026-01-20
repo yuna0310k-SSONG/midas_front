@@ -9,6 +9,7 @@ interface User {
   id?: string;
   name: string;
   email?: string;
+  role?: 'user' | 'admin';
 }
 
 interface AuthContextType {
@@ -16,6 +17,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
+  isAdmin: boolean; // admin 여부 확인 헬퍼
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -62,7 +64,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       // 사용자 ID 추출
-      const userId = data.id || data.userId || data.user?.id || data.user?.userId;
+      let userId = data.id || data.userId || data.user?.id || data.user?.userId;
+      
+      // 사용자 Role 추출
+      let userRole: 'user' | 'admin' | undefined = data.role || data.user?.role;
       
       // Access Token 저장
       const accessToken = data.accessToken || data.token || data.access_token || data.user?.token;
@@ -73,16 +78,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAccessToken(accessToken, expiresIn);
         console.log("Access token saved to localStorage");
         
-        // JWT에서 사용자 ID 추출 시도
-        if (!userId && accessToken) {
+        // JWT에서 사용자 ID 및 Role 추출 시도
+        if (accessToken) {
           try {
             const payload = JSON.parse(atob(accessToken.split('.')[1]));
-            const extractedId = payload.sub || payload.userId || payload.id || payload.user_id;
-            if (extractedId) {
-              userId = extractedId;
+            // ID 추출
+            if (!userId) {
+              const extractedId = payload.sub || payload.userId || payload.id || payload.user_id;
+              if (extractedId) {
+                userId = extractedId;
+              }
+            }
+            // Role 추출
+            if (!userRole) {
+              userRole = payload.role || payload.userRole;
             }
           } catch (e) {
-            console.error("토큰에서 ID 추출 실패:", e);
+            console.error("토큰에서 정보 추출 실패:", e);
           }
         }
       } else {
@@ -97,7 +109,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const userData: User = { 
         id: userId,
         name: userName, 
-        email: data.email || data.user?.email || email 
+        email: data.email || data.user?.email || email,
+        role: userRole || 'user' // 기본값은 'user'
       };
       
       setUser(userData);
@@ -132,6 +145,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         login,
         logout,
         isAuthenticated: !!user,
+        isAdmin: user?.role === 'admin',
       }}
     >
       {children}

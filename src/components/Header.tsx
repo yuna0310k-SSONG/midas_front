@@ -10,7 +10,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState<number | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout, isAdmin } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,7 +101,8 @@ export default function Header() {
           </nav>
 
           {/* User Icon or Login - 오른쪽 (Desktop only) */}
-          <div className="absolute right-4 sm:right-6 lg:right-8 hidden 2xl:flex items-center">
+          <div className="absolute right-4 sm:right-6 lg:right-8 hidden 2xl:flex items-center space-x-4">
+            
             {isAuthenticated && user && user.name ? (
               <Link
                 href="/profile"
@@ -178,11 +179,12 @@ export default function Header() {
         {isMobileMenuOpen && (
           <nav className="2xl:hidden pb-4 animate-in slide-in-from-top duration-200 border-t border-gray-200 mt-2 pt-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
             {/* 사용자 정보 (모바일 메뉴 안에 표시) */}
-            <div className="px-4 py-3 border-b border-gray-300 mb-2 flex justify-end">
+            <div className="px-4 py-3 border-b border-gray-300 mb-2 flex flex-col space-y-2">
+              
               {isAuthenticated && user && user.name ? (
                 <Link
                   href="/profile"
-                  className="flex items-center space-x-3 cursor-pointer hover:opacity-70 transition-opacity"
+                  className="flex items-center space-x-3 cursor-pointer hover:opacity-70 transition-opacity ml-auto"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <svg

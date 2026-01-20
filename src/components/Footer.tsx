@@ -68,11 +68,11 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-gray-300">
               <li className="flex items-start">
                 <span className="mr-2">📍</span>
-                <span>서울특별시 강남구 테헤란로 123</span>
+                <span>서울 서초구 서초대로 310 소망빌딩 4층 미다스한의원</span>
               </li>
               <li className="flex items-center">
                 <span className="mr-2">📞</span>
-                <span>02-1234-5678</span>
+                <span>02-3472-1075</span>
               </li>
               <li className="flex items-center">
                 <span className="mr-2">📧</span>
@@ -80,7 +80,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <span className="mr-2">🕒</span>
-                <span>평일 09:00 - 18:00</span>
+                <span>평일 10:30 - 22:30</span>
               </li>
             </ul>
           </div>
