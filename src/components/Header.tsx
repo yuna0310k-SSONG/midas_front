@@ -61,50 +61,52 @@ export default function Header() {
 
           {/* Desktop Menu - 정 중앙 */}
           <nav className="hidden 2xl:flex items-center space-x-6">
-            {menuData.map((menu, index) => (
-              <div
-                key={index}
-                className="relative"
-                onMouseEnter={() => setHoveredMenu(index)}
-                onMouseLeave={() => setHoveredMenu(null)}
-              >
-                {menu.children ? (
-                  <button
-                    type="button"
-                    onClick={() => toggleMenu(index)}
-                    className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
-                  >
-                    {menu.title}
-                  </button>
-                ) : (
-                  <Link
-                    href={menu.href || "#"}
-                    className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
-                  >
-                    {menu.title}
-                  </Link>
-                )}
-                {menu.children && hoveredMenu === index && (
-                  <div 
-                    className="absolute top-full left-0 mt-1 w-56 bg-white rounded-md shadow-xl py-2 z-[60] animate-in fade-in slide-in-from-top-2 duration-200 border border-gray-200"
+            {menuData.map((menu, index) => {
+              const parentHref = menu.href || menu.children?.[0]?.href || "#";
+              return (
+                <div
+                  key={index}
+                  className="relative"
+                  onMouseEnter={() => setHoveredMenu(index)}
+                  onMouseLeave={() => setHoveredMenu(null)}
+                >
+                  {menu.children ? (
+                    <Link
+                      href={parentHref}
+                      className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
+                    >
+                      {menu.title}
+                    </Link>
+                  ) : (
+                    <Link
+                      href={menu.href || "#"}
+                      className="px-3 py-2 text-sm font-medium text-[#2d2d2d] hover:text-[#e3ba75] transition-colors duration-200 whitespace-nowrap"
+                    >
+                      {menu.title}
+                    </Link>
+                  )}
+                  {menu.children && hoveredMenu === index && (
+                  <div
+                    className="absolute top-full left-0 mt-1 w-56 bg-white/70 backdrop-blur-xl border border-[#d4c79a]/70 rounded-2xl shadow-[0_12px_40px_rgba(18,15,12,0.18)] py-2 z-[60] animate-in fade-in slide-in-from-top-2 duration-200"
                     onMouseEnter={() => setHoveredMenu(index)}
                     onMouseLeave={() => setHoveredMenu(null)}
                   >
-                    {menu.children.map((child, childIndex) => (
-                      <Link
-                        key={childIndex}
-                        href={child.href || "#"}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#e3ba75] transition-colors duration-150 whitespace-nowrap"
-                        target={child.href?.startsWith('http') ? '_blank' : undefined}
-                        rel={child.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      >
-                        {child.title}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                      {menu.children.map((child, childIndex) => (
+                        <Link
+                          key={childIndex}
+                          href={child.href || "#"}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#e3ba75] transition-colors duration-150 whitespace-nowrap"
+                          target={child.href?.startsWith('http') ? '_blank' : undefined}
+                          rel={child.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        >
+                          {child.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </nav>
 
           {/* User Icon or Login - 오른쪽 (Desktop only) */}
@@ -240,39 +242,48 @@ export default function Header() {
             </div>
 
             {/* 메뉴 항목들 */}
-            {menuData.map((menu, index) => (
-              <div key={index} className="border-b border-gray-300">
-                {menu.children ? (
-                  <>
-                    <div className="px-4 py-3 font-medium text-[#e3ba75]">
-                      {menu.title}
-                    </div>
-                    <div className="pl-6 pb-2">
-                      {menu.children.map((child, childIndex) => (
+            {menuData.map((menu, index) => {
+              const parentHref = menu.href || menu.children?.[0]?.href || "#";
+              return (
+                <div key={index} className="border-b border-gray-300">
+                  {menu.children ? (
+                    <>
+                      <div className="px-4 py-3 font-medium text-[#e3ba75]">
                         <Link
-                          key={childIndex}
-                          href={child.href || "#"}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:text-[#e3ba75] hover:bg-gray-100 rounded-md transition-colors duration-150"
+                          href={parentHref}
+                          className="block text-base text-[#2d2d2d]"
                           onClick={() => setIsMobileMenuOpen(false)}
-                          target={child.href?.startsWith('http') ? '_blank' : undefined}
-                          rel={child.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
                         >
-                          {child.title}
+                          {menu.title}
                         </Link>
-                      ))}
-                    </div>
-                  </>
-                ) : (
-                  <Link
-                    href={menu.href || "#"}
-                    className="block px-4 py-3 font-medium text-[#e3ba75] hover:bg-gray-100 rounded-md transition-colors duration-150"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {menu.title}
-                  </Link>
-                )}
-              </div>
-            ))}
+                      </div>
+                      <div className="pl-6 pb-2">
+                        {menu.children.map((child, childIndex) => (
+                          <Link
+                            key={childIndex}
+                            href={child.href || "#"}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:text-[#e3ba75] hover:bg-gray-100 rounded-md transition-colors duration-150"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            target={child.href?.startsWith('http') ? '_blank' : undefined}
+                            rel={child.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                          >
+                            {child.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      href={parentHref}
+                      className="block px-4 py-3 font-medium text-[#e3ba75] hover:bg-gray-100 rounded-md transition-colors duration-150"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {menu.title}
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
           </nav>
         )}
       </div>

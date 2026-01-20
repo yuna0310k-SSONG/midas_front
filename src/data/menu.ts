@@ -7,6 +7,7 @@ export interface MenuItem {
 export const menuData: MenuItem[] = [
   {
     title: "MIDAS",
+    href: "/midas/special",
     children: [
       { title: "MIDAS의 특별함", href: "/midas/special" },
       { title: "원장소개", href: "/midas/director" },
