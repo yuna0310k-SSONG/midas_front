@@ -1,107 +1,107 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { directorProfile } from "@/data/directorProfile";
 
-const sections = [
-  { title: "학력 및 연구", subtitle: "한의학 전문성과 연구 기반", items: directorProfile.education },
-  { title: "수련 및 경력", subtitle: "임상 경험과 리더십", items: directorProfile.training },
-  { title: "학회·소속", subtitle: "전문 학회 활동", items: directorProfile.memberships },
-];
+const directorProfile = {
+  name: "박승구",
+  title: "한방 안·이비인후·피부과 전문의",
+  subtitle: "한의학 박사",
+  description:
+    "한방 안·이비인후·피부과 전문의, 한의학 박사로서 석·박사 과정과 다수의 연구를 통해 얻은 전문 지식을 바탕으로 미다스만의 통합 치료를 선보입니다.",
+  education: [
+    "경희대학교 한의과대학 졸업",
+    "경희대학교 대학원 한의학 석사",
+    "경희대학교 대학원 한의학 박사",
+    "한방 안·이비인후·피부과 전문의 취득",
+  ],
+  training: [
+    "경희대학교 한방병원 안이비인후피부과 레지던트",
+    "경희대학교 한방병원 안이비인후피부과 전문의",
+    "미다스한의원 대표원장",
+  ],
+  memberships: [
+    "대한한의사협회 정회원",
+    "대한한방안이비인후피부과학회 정회원",
+    "대한약침학회 정회원",
+  ],
+  research: [
+    "아토피 피부염 관련 다수 논문 게재",
+    "여드름 치료 임상 연구 참여",
+    "피부 질환 한방 치료 학술 발표",
+    "한방 미용 치료 연구 및 개발",
+  ],
+};
+
+function Section({
+  title,
+  items,
+}: {
+  title: string;
+  items: string[];
+}) {
+  return (
+    <section className="bg-[#f5f3ef] p-10">
+      <h2 className="text-2xl font-serif tracking-wide text-center mb-10">
+        {title}
+      </h2>
+      <ul className="max-w-xl mx-auto space-y-5">
+        {items.map((item) => (
+          <li
+            key={item}
+            className="text-center text-gray-700 pb-4 border-b border-gray-200 last:border-0"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
 
 export default function DirectorPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-white rounded-[32px] border border-[#d4c79a]/40 p-10 shadow-2xl shadow-[#b2995d]/30">
-          <div className="relative overflow-hidden rounded-[34px] bg-gradient-to-br from-white via-[#fffdf5] to-[#f2e7cd] px-6 py-10 shadow-[0_35px_80px_rgba(18,12,5,0.18)]">
-            <div className="absolute -right-24 top-8 h-48 w-48 rounded-full bg-[#f9e5c6]/70 blur-3xl" />
-            <div className="absolute -left-20 bottom-10 h-40 w-40 rounded-full bg-[#f8d4a4]/70 blur-3xl" />
-            <div className="relative grid gap-6 lg:grid-cols-[1fr_auto] items-center justify-between">
-              <div className="space-y-3 text-right lg:text-left">
-                <p className="text-lg text-[#5c4f3a] font-medium tracking-wide uppercase">
-                  {directorProfile.titles[0]}
-                </p>
-                <h1 className="text-4xl md:text-5xl font-bold text-[#2d2d2d]">
-                  {directorProfile.name}
-                </h1>
-                <p className="text-base text-[#4c4334] leading-relaxed">
-                  한방 안·이비인후·피부과 전문의, 한의학 박사로서 석·박사
-                  과정과 다수의 연구를 통해 얻은 전문 지식을 바탕으로
-                  미다스만의 통합 치료를 선보입니다.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {["전문 의료진", "맞춤 치료", "건강한 미용"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-[#d4c79a] bg-white px-3 py-1 text-xs font-semibold text-[#5c4f3a]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center justify-center rounded-[28px] bg-[#fffdf4] p-3 shadow-[0_20px_60px_rgba(15,10,0,0.25)]">
-                <Image
-                  src="/dr.kang.png"
-                  alt="미다스 한의원 박승구 원장"
-                  width={280}
-                  height={320}
-                  className="h-64 w-auto object-cover transition-transform duration-500 hover:scale-105"
-                />
-              </div>
-            </div>
-          </div>
+    <div className="min-h-screen bg-[#fdfcfa] py-24 space-y-32">
 
-          <div className="flex flex-wrap gap-3 mb-10">
-            {directorProfile.titles.map((title) => (
-              <span
-                key={title}
-                className="px-4 py-2 rounded-full border border-[#d4c79a] bg-[#fffdf5] text-sm text-[#5c4f3a]"
-              >
-                {title}
-              </span>
-            ))}
+      {/* 타이틀 */}
+      <header className="text-center space-y-8">
+        <div className="flex justify-center items-center gap-10">
+          <div>
+            <h1 className="text-6xl font-serif tracking-tight mb-2">
+              {directorProfile.name}
+            </h1>
+            <p className="text-sm tracking-wider">
+              {directorProfile.title}
+            </p>
+            <p className="text-sm">{directorProfile.subtitle}</p>
           </div>
-
-          <div className="grid gap-8 lg:grid-cols-2">
-            {sections.map((section) => (
-              <div key={section.title} className="space-y-3">
-                <h2 className="text-xl font-semibold text-[#2d2d2d]">{section.title}</h2>
-                <p className="text-sm text-[#4c4334]">{section.subtitle}</p>
-                <ul className="list-disc list-inside space-y-1">
-                  {section.items.map((item) => (
-                    <li key={item} className="text-[#4a4032] leading-relaxed">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 space-y-4">
-            <div>
-              <h3 className="text-xl font-semibold text-[#2d2d2d] mb-2">사회·학술 활동</h3>
-              <div className="space-y-1 text-[#4a4032]">
-                {directorProfile.research.map((item) => (
-                  <p key={item} className="leading-relaxed">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <Link
-              href="/"
-              className="inline-block px-6 py-3 bg-[#e3ba75] text-[#2d2d2d] font-semibold rounded-md hover:bg-[#d4a865] transition-colors duration-200"
-            >
-              홈으로 돌아가기
-            </Link>
-          </div>
+          <Image
+            src="/doc.jpg"
+            alt="박승구 원장"
+            width={160}
+            height={200}
+            className="h-44 w-auto object-cover"
+          />
         </div>
-      </div>
+      </header>
+
+      {/* 인트로 */}
+      <p className="max-w-2xl mx-auto text-center text-lg font-serif italic leading-loose text-gray-700">
+        {directorProfile.description}
+      </p>
+
+      {/* 섹션들 */}
+      <Section title="Education" items={directorProfile.education} />
+      <Section title="Professional Experience" items={directorProfile.training} />
+      <Section title="Membership" items={directorProfile.memberships} />
+      <Section title="Research" items={directorProfile.research} />
+
+      {/* 인용 */}
+      <blockquote className="text-center max-w-xl mx-auto border-t-4 border-[#d4a865] pt-8">
+        <p className="text-lg font-serif italic text-gray-600">
+          “전문 지식을 바탕으로 한 통합 치료”
+        </p>
+      </blockquote>
+
     </div>
   );
 }
