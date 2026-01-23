@@ -155,7 +155,7 @@ export default function LocationPage() {
             </h2>
             <div className="flex flex-col sm:flex-row justify-center gap-5 font-sans uppercase">
               <Link href="https://m.booking.naver.com" className="px-10 py-4 bg-[#b39359] text-white font-bold rounded-full hover:shadow-[0_0_30px_rgba(179,147,89,0.3)] transition-all text-[11px] tracking-[0.2em]">Online Booking</Link>
-              <a href="tel:0212345678" className="px-10 py-4 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-all text-[11px] tracking-[0.2em]">Call 02.1234.5678</a>
+              <a href="tel:02-3472-1075" className="px-10 py-4 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-all text-[11px] tracking-[0.2em]">Call 02-3472-1075</a>
             </div>
           </div>
         </div>
