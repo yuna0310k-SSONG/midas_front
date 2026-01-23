@@ -34,7 +34,7 @@ export const menuData: MenuItem[] = [
   {
     title: "체형 교정",
     children: [
-      { title: "전체 체형 교정", href: "/posture/general" },
+      { title: "체형교정", href: "/posture/general" },
       { title: "거북목 교정", href: "/posture/turtle-neck" },
       { title: "라운드숄더 교정", href: "/posture/round-shoulder" },
       { title: "측만증 교정", href: "/posture/scoliosis" },
@@ -48,7 +48,7 @@ export const menuData: MenuItem[] = [
     ],
   },
   {
-    title: "소아·청소년",
+    title: "수험생·소아",
     children: [
       { title: "소아 한의원", href: "/children/pediatric" },
       { title: "수험생 건강관리", href: "/children/student" },
