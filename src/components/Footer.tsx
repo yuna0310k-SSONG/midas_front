@@ -1,113 +1,110 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#2d2d2d] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* About Section */}
-          <div>
-            <h3 className="text-lg font-semibold text-[#e3ba75] mb-4">
-              MIDAS 한의원
-            </h3>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              안면교정, 체형교정, 한방성형, 통증치료 전문 한의원으로
-              <br />
-              환자 중심의 맞춤형 치료를 제공합니다.
-            </p>
-          </div>
+    <footer className="bg-[#1a1a1a] text-[#a0a0a0] font-serif">
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        
+        {/* 상단 섹션: 브랜드 로고 및 설명 */}
+        <div className="mb-16 text-center md:text-left">
+          <h2 className="text-[#b39359] text-2xl font-light letter-spacing tracking-[0.3em] mb-6">
+            MIDAS CLINIC
+          </h2>
+          <div className="h-[1px] w-12 bg-[#b39359] mb-8 mx-auto md:mx-0 opacity-50" />
+          <p className="text-sm leading-loose opacity-80 break-keep max-w-xl">
+            그리스 신화 속 미다스의 손길처럼, 당신의 본연의 아름다움을 찾아 황금빛 밸런스를 선사합니다. 
+            정교한 의학적 전문성과 지고의 가치를 담은 공간에서 진정한 휴식과 변화를 경험하세요.
+          </p>
+        </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold text-[#e3ba75] mb-4">
-              빠른 링크
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link
-                  href="https://m.booking.naver.com/booking/13/bizes/670877?theme=place&entry=pll&lang=ko&area=pll"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-[#e3ba75] transition-colors duration-200"
-                >
-                  진료안내 및 예약
-                </Link>
+        {/* 중단 섹션: 그리드 레이아웃 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 border-t border-white/5 pt-16">
+          
+          {/* Information */}
+          <div className="space-y-6">
+            <h3 className="text-white text-xs font-bold tracking-[0.2em] uppercase mb-8">Information</h3>
+            <ul className="space-y-4 text-[13px] font-light">
+              <li className="flex items-center gap-4">
+                <span className="text-[#b39359] w-4 text-center">📍</span>
+                <span className="hover:text-white transition-colors cursor-default">
+                  서울 서초구 서초대로 310 소망빌딩 4층
+                </span>
               </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-[#e3ba75] transition-colors duration-200"
-                >
-                  원장소개
-                </Link>
+              <li className="flex items-center gap-4">
+                <span className="text-[#b39359] w-4 text-center">📞</span>
+                <span className="hover:text-white transition-colors">02-3472-1075</span>
               </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-[#e3ba75] transition-colors duration-200"
-                >
-                  한의원 공간 소개
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#"
-                  className="text-gray-300 hover:text-[#e3ba75] transition-colors duration-200"
-                >
-                  오시는 길
-                </Link>
+              <li className="flex items-center gap-4">
+                <span className="text-[#b39359] w-4 text-center">✉️</span>
+                <span className="hover:text-white transition-colors">albotalbot@daum.net</span>
               </li>
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold text-[#e3ba75] mb-4">
-              연락처
-            </h3>
-            <ul className="space-y-2 text-sm text-gray-300">
-              <li className="flex items-start">
-                <span className="mr-2">📍</span>
-                <span>서울 서초구 서초대로 310 소망빌딩 4층 미다스한의원</span>
+          {/* Business Hours */}
+          <div className="space-y-6">
+            <h3 className="text-white text-xs font-bold tracking-[0.2em] uppercase mb-8">Business Hours</h3>
+            <div className="space-y-3 text-[13px] font-light leading-relaxed">
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span>월 · 화 · 목 · 금</span>
+                <span className="text-white">10:30 – 20:30</span>
+              </div>
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span>수요일 (오후진료)</span>
+                <span className="text-white">14:00 – 20:30</span>
+              </div>
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span>토요일</span>
+                <span className="text-white">09:30 – 15:00</span>
+              </div>
+              <p className="text-[11px] text-[#b39359] mt-2 italic opacity-80">
+                * 일요일 및 공휴일은 휴진입니다.
+              </p>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-6">
+            <h3 className="text-white text-xs font-bold tracking-[0.2em] uppercase mb-8">Quick Links</h3>
+            <ul className="grid grid-cols-2 gap-4 text-[13px] font-light">
+              <li>
+                <Link href="/director" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
+                  <span className="text-[8px] opacity-40">●</span> 한의사 소개
+                </Link>
               </li>
-              <li className="flex items-center">
-                <span className="mr-2">📞</span>
-                <span>02-3472-1075</span>
+              <li>
+                <Link href="/specialty" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
+                  <span className="text-[8px] opacity-40">●</span> 공간 소개
+                </Link>
               </li>
-              <li className="flex items-center">
-                <span className="mr-2">📧</span>
-                <span>albotalbot@daum.net</span>
+              <li>
+                <Link href="/location" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
+                  <span className="text-[8px] opacity-40">●</span> 오시는 길
+                </Link>
               </li>
-              <li className="flex items-center">
-                <span className="mr-2">🕒</span>
-                <span>
-                  월·화·목·금 10:30~20:30
-                  <br />
-                  수 14:00~20:30 / 토 09:30~15:00
-                </span>
+              <li>
+                <Link 
+                  href="https://m.booking.naver.com/booking/13/bizes/670877" 
+                  target="_blank"
+                  className="hover:text-[#b39359] transition-colors flex items-center gap-2"
+                >
+                  <span className="text-[8px] opacity-40">●</span> 온라인 예약
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-8 pt-8 border-t border-[#3a3a3a]">
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-            <p>© 2026 MIDAS 한의원. All rights reserved.</p>
-            <div className="flex space-x-4 mt-4 md:mt-0">
-              <Link
-                href="#"
-                className="hover:text-[#e3ba75] transition-colors duration-200"
-              >
-                개인정보처리방침
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-[#e3ba75] transition-colors duration-200"
-              >
-                이용약관
-              </Link>
-            </div>
+        {/* 하단 섹션: 법적 고지 및 저작권 */}
+        <div className="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-[11px] tracking-widest opacity-40">
+            © 2026 MIDAS CLINIC. ALL RIGHTS RESERVED.
+          </div>
+          <div className="flex gap-8 text-[11px] tracking-widest opacity-60">
+            <Link href="/privacy" className="hover:text-white transition-colors">PRIVACY POLICY</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">TERMS OF USE</Link>
           </div>
         </div>
       </div>

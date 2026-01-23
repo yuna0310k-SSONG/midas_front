@@ -1,60 +1,118 @@
 "use client";
 
-import Link from "next/link";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function MidasSpecialPage() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const texts = [
+    { title: "LOCATION", content: "서울 강남 교대역, 고품격 의료 서비스를 위한 프라이빗 스테이" },
+    { title: "PRIVACY", content: "완벽한 프라이버시를 보장하는 1인실과 최첨단 정밀 진단 시스템" },
+    { title: "EXPERTISE", content: "한의학 박사 및 전문의가 제안하는 수준 높은 의학적 솔루션" },
+    { title: "PROMISE", content: "당신의 건강과 아름다움이 머무는 곳, 미다스한의원" },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h1 className="text-4xl font-bold text-[#2d2d2d] mb-6">MIDAS의 특별함</h1>
-          
-          <div className="prose max-w-none">
-            <p className="text-lg text-gray-700 mb-6">
-              미다스한의원은 서울 강남 교대역에 위치한 한의원으로 고품격 한의원을 지향하고 있습니다.
+    <div style={{ backgroundColor: "#fcfcfc", color: "#1a1a1a", minHeight: "100vh", fontFamily: "serif" }}>
+      
+      {/* 상단 고정 헤더 */}
+      <header style={{ 
+        position: "fixed", top: 0, left: 0, width: "100%", height: "80px", zIndex: 100,
+        backgroundColor: "rgba(252, 252, 252, 0.9)", backdropFilter: "blur(10px)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        borderBottom: "1px solid rgba(0,0,0,0.05)",
+        opacity: isLoaded ? 1 : 0, transition: "all 1s ease"
+      }}>
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <h1 style={{ 
+            fontSize: "1.5rem", fontWeight: "300", letterSpacing: "0.3em", color: "#b39359", 
+            margin: 0, cursor: "pointer", transition: "0.3s" 
+          }}
+          onMouseOver={(e) => e.currentTarget.style.opacity = "0.7"}
+          onMouseOut={(e) => e.currentTarget.style.opacity = "1"}
+          >MIDAS</h1>
+        </Link>
+      </header>
+
+      <main style={{ maxWidth: "1100px", margin: "0 auto", padding: "140px 24px 100px" }}>
+        
+        {/* --- BRAND STORY SECTION (새로 추가된 부분) --- */}
+        <section style={{ 
+          textAlign: "center", marginBottom: "120px",
+          opacity: isLoaded ? 1 : 0,
+          transform: isLoaded ? "none" : "translateY(30px)",
+          transition: "all 1.5s ease"
+        }}>
+          <span style={{ fontSize: "0.8rem", color: "#b39359", letterSpacing: "0.3em" }}>BRAND STORY</span>
+          <h2 style={{ fontSize: "2.2rem", fontWeight: "300", marginTop: "20px", marginBottom: "40px" }}>
+            손길 끝에서 피어나는 <span style={{ fontStyle: "italic", color: "#b39359" }}>지고의 가치</span>
+          </h2>
+          <div style={{ maxWidth: "700px", margin: "0 auto", lineHeight: "2", color: "#555", wordBreak: "keep-all" }}>
+            <p style={{ fontSize: "1.1rem", marginBottom: "20px" }}>
+              미다스(MIDAS)는 손길이 닿는 모든 것을 황금으로 변화시킨 그리스 신화 속 왕의 이름이자, 
+              <br/>
+              한자어로 <strong style={{ color: "#1a1a1a", fontWeight: "500" }}>아름다움(美)을 가득(多) 담아 선사한다(授)</strong>는 진심을 담고 있습니다.
             </p>
+            <p style={{ fontSize: "1rem", color: "#888", fontWeight: "300" }}>
+              신화 속의 기적이 현대의 의학적 정교함과 만나, <br/>
+              당신의 건강과 아름다움이 가장 찬란하게 빛나는 순간을 약속합니다.
+            </p>
+          </div>
+          <div style={{ width: "1px", height: "60px", backgroundColor: "#b39359", margin: "40px auto", opacity: 0.5 }}></div>
+        </section>
+        {/* ------------------------------------------- */}
 
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-semibold text-[#8c6b3f] mb-3">1인실 치료</h2>
-                <p className="text-gray-600">
-                  환자 프라이버시를 보장하는 1인실 치료를 통해 편안하고 안전한 진료 환경을 제공합니다.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-semibold text-[#8c6b3f] mb-3">최첨단 의료기기</h2>
-                <p className="text-gray-600">
-                  과학적인 최첨단 의료기기를 도입하여 정확한 진단과 효과적인 치료를 제공합니다.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-semibold text-[#8c6b3f] mb-3">전문 의료진</h2>
-                <p className="text-gray-600">
-                  한의학박사이자 한방 안이비인후피부과 전문의 원장이 직접 진료하며, 대학 및 국내외 학회, 한의학 관련 기관에서의 경험과 연구를 바탕으로 전문적이고 수준 높은 치료를 제공합니다.
-                </p>
-              </div>
-
-              <div>
-                <h2 className="text-2xl font-semibold text-[#8c6b3f] mb-3">다양한 진료 분야</h2>
-                <p className="text-gray-600">
-                  체형교정, 안면비대칭교정, 두상교정, 피부리프팅, 다이어트 등 미용 진료 외에도 일반적인 통증 환자 치료, 자동차 보험 환자 치료, 알레르기 질환 치료, 성장 치료, 피부 질환 치료 등 다양한 분야의 진료를 진행합니다.
-                </p>
-              </div>
-            </div>
+        <div style={{ 
+          display: "flex", flexDirection: "row", gap: "60px", alignItems: "flex-start", flexWrap: "wrap" 
+        }}>
+          {/* 왼쪽 이미지 섹션 */}
+          <div style={{ 
+            flex: "1 1 400px", position: "sticky", top: "120px", height: "65vh", overflow: "hidden",
+            borderRadius: "150px 150px 20px 20px", boxShadow: "0 20px 40px rgba(0,0,0,0.05)",
+            opacity: isLoaded ? 1 : 0, transform: isLoaded ? "none" : "translateY(40px)",
+            transition: "all 1.5s cubic-bezier(0.22, 1, 0.36, 1)"
+          }}>
+            <div style={{
+              width: "100%", height: "100%", backgroundImage: "url('/spacial.jpg')",
+              backgroundSize: "cover", backgroundPosition: "center",
+            }} />
           </div>
 
-          <div className="mt-8">
-            <Link
-              href="/"
-              className="inline-block px-6 py-3 bg-[#e3ba75] text-[#2d2d2d] font-semibold rounded-md hover:bg-[#d4a865] transition-colors duration-200"
-            >
-              홈으로 돌아가기
-            </Link>
+          {/* 오른쪽 텍스트 리스트 */}
+          <div style={{ flex: "1 1 500px" }}>
+            <div style={{ marginBottom: "60px" }}>
+              <span style={{ fontSize: "0.8rem", color: "#b39359", letterSpacing: "0.2em" }}>OUR SPECIALTY</span>
+              <h2 style={{ fontSize: "2.8rem", fontWeight: "300", marginTop: "10px", lineHeight: "1.2", wordBreak: "keep-all" }}>
+                공간의 철학,<br/>
+                <span style={{ fontStyle: "italic", color: "#b39359" }}>특별함의 이유</span>
+              </h2>
+            </div>
+            
+            <section>
+              {texts.map((item, index) => (
+                <div key={index} style={{ 
+                  padding: "40px 0", borderBottom: "1px solid #f0f0f0",
+                  opacity: isLoaded ? 1 : 0, transform: isLoaded ? "none" : "translateY(20px)",
+                  transition: `all 1s ease ${index * 0.15}s` 
+                }}>
+                  <div style={{ fontSize: "0.75rem", color: "#b39359", fontWeight: "bold", marginBottom: "16px", display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span style={{ width: "12px", height: "1px", backgroundColor: "#b39359" }}></span>
+                    {item.title}
+                  </div>
+                  <p style={{ fontSize: "1.1rem", lineHeight: "1.8", wordBreak: "keep-all", color: "#333", fontWeight: "300" }}>
+                    {item.content}
+                  </p>
+                </div>
+              ))}
+            </section>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
