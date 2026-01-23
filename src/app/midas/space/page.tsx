@@ -22,7 +22,7 @@ export default function SpacePage() {
       title: "오직 당신만을 위한 진료실",
       description: "독립된 구조의 진료실에서 원장님의 세심한 수기 치료와 침구 치료가 이루어집니다. 타인의 시선에서 벗어나 온전히 회복에만 집중할 수 있는 환경을 제공합니다.",
       images: ["/space/3.jpg"], // 진료실 2개
-      features: ["1인 립 진료 공간", "철저한 위생 관리", "인체공학적 치료 베드"]
+      features: ["1인 독립 진료 공간", "철저한 위생 관리", "인체공학적 치료 베드"]
     },
     {
       category: "Powder Room",
@@ -98,31 +98,7 @@ export default function SpacePage() {
           </section>
         ))}
 
-        {/* Info Box */}
-        <section className="bg-white rounded-3xl p-10 md:p-16 text-center shadow-sm border border-gray-100 max-w-4xl mx-auto mt-20">
-          <h2 className="text-2xl font-light mb-8 text-[#2d2d2d]">방문 안내 및 위치</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="space-y-2">
-              <h3 className="text-[#b39359] font-bold text-sm uppercase tracking-tighter">Location</h3>
-              <p className="text-gray-600 text-[13px] leading-relaxed">교대역 1번 출구 도보 1분<br/>소망빌딩 4층</p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-[#b39359] font-bold text-sm uppercase tracking-tighter">Parking</h3>
-              <p className="text-gray-600 text-[13px] leading-relaxed">빌딩 내 기계식 주차 가능<br/>(대형 세단/SUV 인근 주차)</p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-[#b39359] font-bold text-sm uppercase tracking-tighter">Schedule</h3>
-              <p className="text-gray-600 text-[13px] leading-relaxed">평일 10:30 – 20:30<br/>토요일 09:30 – 15:00</p>
-            </div>
-          </div>
-          <Link 
-            href="https://m.booking.naver.com/booking/13/bizes/670877"
-            target="_blank"
-            className="mt-12 inline-block bg-[#b39359] text-white px-10 py-4 rounded-full text-sm tracking-widest hover:bg-[#9a7d4a] transition-all shadow-lg"
-          >
-            진료 예약하기
-          </Link>
-        </section>
+       
       </main>
     </div>
   );

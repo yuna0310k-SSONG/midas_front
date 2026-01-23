@@ -1,95 +1,96 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const quickLinks = [
   {
-    label: "블로그",
+    label: "BLOG",
     href: "https://blog.naver.com/albotalbot",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6">
-        <path
-          fill="currentColor"
-          d="M4 4h16v16H4z"
-        />
-        <path
-          fill="#fff"
-          d="M7 7h10v2H7zm0 4h10v2H7zm0 4h6v2H7z"
-        />
+      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
       </svg>
     ),
   },
   {
-    label: "카카오톡",
+    label: "KAKAO",
     href: "https://pf.kakao.com/_sxkrNb",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6">
-        <path
-          fill="currentColor"
-          d="M12 3C7 3 3 6.2 3 10.5c0 2.3 1 4.4 2.7 5.8l-.4 3.8 4.5-2h.2c4.8 0 8.7-3.2 8.7-7s-3.9-8-8.7-8z"
-        />
+      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
       </svg>
     ),
   },
   {
-    label: "톡톡",
-    href: "https://talk.naver.com/ct/w48doc?frm=mnmb&frm=nmb_detail#nafullscreen",
+    label: "Naver TalkTalk",
+    href: "https://talk.naver.com/ct/w48doc",
     icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6">
-        <path
-          fill="currentColor"
-          d="M7 4c-1.7 0-3 1.3-3 3v2c0 1.7 1.3 3 3 3h1v2h2v-2h2v-2H8v-1h9c1.7 0 3-1.3 3-3V7c0-1.7-1.3-3-3-3H7zm6.5 3.9l.9-.9h-1.8l.9.9zm-5.6 0l.9-.9H6l.9.9z"
-        />
+      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.303.025-.607.047-.912.065a4.331 4.331 0 01-3.111-1.399L12 12.122m8.25-3.611a48.394 48.394 0 00-15.75 0m15.75 0c.384.123.746.296 1.08.514M5.25 8.511c-.884.284-1.5 1.128-1.5 2.097v4.286c0 1.136.847 2.1 1.98 2.193.303.025.607.047.912.065a4.331 4.331 0 003.111-1.399L12 12.122m-6.75-3.611a48.39 48.39 0 0115.75 0m-15.75 0c-.384.123-.746.296-1.08.514M12 12.122v8.25" />
       </svg>
     ),
   },
 ];
 
 export default function QuickLinks() {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 200);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToTop = () => {
-    if (typeof window === "undefined") return;
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const toggleMobile = () => setIsMobileOpen((prev) => !prev);
+
+  // 공통 컬러 테마 (연골드)
+  const lightGold = "#C5A059";
 
   return (
     <>
-      <div className="hidden lg:flex fixed right-4 bottom-8 z-50 flex-col items-center gap-3 text-xs font-semibold">
+      {/* --- DESKTOP --- */}
+      <div className="hidden lg:flex fixed right-8 bottom-10 z-[999] flex-col items-center gap-3">
         {quickLinks.map((link) => (
           <a
             key={link.label}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-14 w-14 flex-col items-center justify-center rounded-xl border border-[#d4c79a] bg-gradient-to-b from-[#fffdf5] to-[#f3e9cd] text-[#1f1b16] shadow-lg transition hover:-translate-y-0.5 hover:shadow-2xl hover:bg-gradient-to-b hover:from-[#fce4a5] hover:to-[#f8d898]"
+            className="group relative flex h-12 w-12 items-center justify-center bg-white/40 backdrop-blur-md border border-[#C5A059]/30 rounded-full transition-all duration-300 hover:bg-white/60 hover:border-[#C5A059]"
             aria-label={link.label}
           >
-            {link.icon}
-            <span className="text-[10px] leading-tight tracking-tighter">{link.label}</span>
+            <div className="text-[#C5A059]/80 group-hover:text-[#C5A059] transition-colors">
+              {link.icon}
+            </div>
+            {/* 텍스트도 라인감에 맞춰 매우 얇고 간결하게 */}
+            <span className="absolute right-16 px-2 text-[9px] tracking-[0.1em] text-[#C5A059] opacity-0 group-hover:opacity-100 transition-opacity font-light">
+              {link.label}
+            </span>
           </a>
         ))}
+
+        {/* TOP BUTTON */}
         <button
-          type="button"
           onClick={scrollToTop}
-          className="flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-b from-[#d4b15a] to-[#f9e5b1] text-[#1f1406] shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl"
-          aria-label="위로가기"
+          className={`flex h-12 w-12 flex-col items-center justify-center bg-white/60 backdrop-blur-md border border-[#C5A059]/20 rounded-full text-[#C5A059] transition-all duration-500
+                     ${scrolled ? "opacity-100 translate-y-0 shadow-sm" : "opacity-0 translate-y-10 pointer-events-none"}`}
+          aria-label="맨 위로"
         >
-          <svg viewBox="0 0 24 24" className="h-6 w-6">
-            <path
-              fill="currentColor"
-              d="M12 5l-6 6h4v5h4v-5h4z"
-            />
+          <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="h-4 w-4">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
           </svg>
-          <span className="text-[10px] leading-tight tracking-tighter">위로가기</span>
+          <span className="text-[7px] font-bold tracking-tighter">TOP</span>
         </button>
       </div>
 
-      <div className="lg:hidden fixed right-3 bottom-6 z-50 flex flex-col items-end gap-3 text-[11px] font-semibold">
+      {/* --- MOBILE --- */}
+      <div className="lg:hidden fixed right-6 bottom-8 z-[999] flex flex-col items-end gap-3">
         <div
-          className={`flex flex-col items-center gap-3 overflow-hidden transition-[max-height,opacity,transform] duration-300 ease-out ${
-            isMobileOpen ? "max-h-[220px] opacity-100 translate-y-0" : "max-h-0 opacity-0 -translate-y-6"
-          }`}
+          className={`flex flex-col gap-3 transition-all duration-500 
+                     ${isMobileOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-10 opacity-0 scale-95 pointer-events-none"}`}
         >
           {quickLinks.map((link) => (
             <a
@@ -97,38 +98,32 @@ export default function QuickLinks() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-12 w-12 flex-col items-center justify-center rounded-2xl border border-[#f2e5d4] bg-white/80 text-[#2d2d2d] shadow-[0_8px_20px_rgba(0,0,0,0.15)] transition hover:-translate-y-0.5 hover:shadow-lg"
-              aria-label={link.label}
+              className="flex items-center gap-3 px-4 py-2 bg-white/60 backdrop-blur-lg border border-[#C5A059]/20 rounded-full"
               onClick={() => setIsMobileOpen(false)}
             >
-              {link.icon}
-              <span className="text-[10px] leading-tight tracking-tight">{link.label}</span>
+              <span className="text-[10px] tracking-widest text-[#C5A059]">{link.label}</span>
+              <div className="text-[#C5A059]/70 w-4 h-4">{link.icon}</div>
             </a>
           ))}
           <button
-            type="button"
-            onClick={() => {
-              scrollToTop();
-              setIsMobileOpen(false);
-            }}
-            className="flex h-12 w-12 flex-col items-center justify-center rounded-full bg-[#e3b561]/80 text-[#1f1406] shadow-lg transition hover:-translate-y-0.5 hover:shadow-2xl"
-            aria-label="위로가기"
+            onClick={() => { scrollToTop(); setIsMobileOpen(false); }}
+            className="flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-lg border border-[#C5A059]/40 rounded-full text-[#C5A059]"
           >
-            <svg viewBox="0 0 24 24" className="h-6 w-6">
-              <path
-                fill="currentColor"
-                d="M12 6l-4.5 4.5h3v6h3v-6h3z"
-              />
-            </svg>
+            <span className="text-[10px] tracking-widest font-bold">TOP</span>
+            <svg fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="h-3 w-3"><path d="M4.5 15.75l7.5-7.5 7.5 7.5" /></svg>
           </button>
         </div>
+
+        {/* 모바일 메인 토글 */}
         <button
           type="button"
-          onClick={toggleMobile}
-          aria-label={isMobileOpen ? "빠른 링크 닫기" : "빠른 링크 열기"}
-          className="flex h-11 w-11 items-center justify-center rounded-full bg-[#1f1406]/80 text-[#fef6e4] shadow-lg transition hover:-translate-y-0.5 hover:shadow-2xl"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          className={`h-12 w-12 flex items-center justify-center rounded-full bg-white/50 backdrop-blur-md border border-[#C5A059]/40 text-[#C5A059] shadow-sm transition-all duration-500
+                     ${isMobileOpen ? "rotate-[135deg]" : "rotate-0"}`}
         >
-          <span className="text-sm font-bold">{isMobileOpen ? "×" : "≡"}</span>
+          <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="h-6 w-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
         </button>
       </div>
     </>

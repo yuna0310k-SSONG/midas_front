@@ -209,12 +209,35 @@ export default function SkullPage() {
         </section>
       </main>
 
-      {/* --- CTA --- */}
-      <footer className="bg-[#2d2d2d] py-24 text-center">
-        <h2 className="text-white text-3xl font-light mb-12 tracking-widest italic font-serif">"두상의 완성, 미다스에서 시작됩니다."</h2>
-        <div className="flex flex-col sm:flex-row justify-center gap-6 px-6">
-          <Link href="https://m.booking.naver.com/booking/13/bizes/670877" target="_blank" className="px-16 py-6 bg-[#b39359] text-white font-bold rounded-full hover:shadow-[0_0_30px_rgba(179,147,89,0.3)] transition-all text-[13px] tracking-widest uppercase font-sans">Online Booking</Link>
-          <Link href="/" className="px-16 py-6 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-all text-[13px] tracking-widest uppercase font-sans">Main Home</Link>
+      {/* --- SEMI FOOTER (Skull Correction) --- */}
+      <footer className="bg-white py-24 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          
+          <h2 className="text-[#2d2d2d] text-xl md:text-2xl font-light mb-10 tracking-tight leading-relaxed">
+            매끈한 두상이 만드는 <br className="md:hidden" />
+            <span className="text-[#b39359] italic font-serif">아름다운 안면 윤곽의 완성</span>
+          </h2>
+
+          <div className="flex justify-center items-center gap-6 mb-12">
+            <Link 
+              href="https://m.booking.naver.com/booking/13/bizes/670877" 
+              target="_blank" 
+              className="text-[12px] font-medium tracking-widest text-[#b39359] hover:opacity-70 transition-opacity font-sans"
+            >
+              두상교정 진료 예약하기
+            </Link>
+            
+            <div className="w-[1px] h-3 bg-gray-200" />
+
+            <Link 
+              href="/" 
+              className="text-[12px] font-medium tracking-widest text-gray-400 hover:text-[#2d2d2d] transition-all font-sans"
+            >
+              메인 홈
+            </Link>
+          </div>
+          
+          
         </div>
       </footer>
     </div>

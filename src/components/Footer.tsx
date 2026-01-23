@@ -70,17 +70,17 @@ export default function Footer() {
             <h3 className="text-white text-xs font-bold tracking-[0.2em] uppercase mb-8">Quick Links</h3>
             <ul className="grid grid-cols-2 gap-4 text-[13px] font-light">
               <li>
-                <Link href="/director" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
+                <Link href="/midas/director" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
                   <span className="text-[8px] opacity-40">●</span> 한의사 소개
                 </Link>
               </li>
               <li>
-                <Link href="/specialty" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
+                <Link href="/midas/space" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
                   <span className="text-[8px] opacity-40">●</span> 공간 소개
                 </Link>
               </li>
               <li>
-                <Link href="/location" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
+                <Link href="/midas/location" className="hover:text-[#b39359] transition-colors flex items-center gap-2">
                   <span className="text-[8px] opacity-40">●</span> 오시는 길
                 </Link>
               </li>

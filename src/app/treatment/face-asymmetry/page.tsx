@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-// --- 아이콘 컴포넌트 ---
+// --- 아이콘 컴포넌트 (기존 유지) ---
 const MethodIcon = ({ type }: { type: string }) => {
   const baseClass = "w-14 h-14 mb-6 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3";
   switch (type) {
@@ -82,139 +82,107 @@ export default function FaceAsymmetryPage() {
 
       <main className="max-w-5xl mx-auto px-6 space-y-40 pb-40">
         
-        {/* --- 자가진단 섹션 (미니멀 라인 스타일) --- */}
-        <section id="diagnostic" className="scroll-mt-20">
-          <div className={`transition-all duration-700 ease-in-out border-b border-t ${
-            isExpanded ? 'bg-white border-[#b39359]/30 shadow-sm' : 'bg-transparent border-gray-100 hover:border-[#b39359]/30'
-          }`}>
-            
-            <button 
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="w-full py-10 px-4 flex items-center justify-between group"
+        {/* --- [수정된 디자인] 인터랙티브 자가진단 섹션 --- */}
+        {/* --- [수정] 01 삭제 및 미니멀 라인 스타일 --- */}
+<section id="diagnostic" className="scroll-mt-20">
+  <div className={`transition-all duration-700 ease-in-out border-b border-t ${
+    isExpanded ? 'bg-white border-[#b39359]/30' : 'bg-transparent border-gray-100 hover:border-[#b39359]/30'
+  }`}>
+    
+    <button 
+      onClick={() => setIsExpanded(!isExpanded)}
+      className="w-full py-10 px-4 flex items-center justify-between group"
+    >
+      <div className="text-left">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-8 h-[1px] bg-[#b39359]/40" />
+          <span className="text-[10px] font-bold tracking-[0.4em] text-[#b39359] uppercase">Self Analysis</span>
+        </div>
+        <h2 className="text-2xl md:text-3xl font-light tracking-tight text-[#2d2d2d]">
+          안면비대칭 <span className="font-serif italic text-[#b39359] ml-1">체크리스트</span>
+        </h2>
+      </div>
+
+      <div className="flex items-center gap-6">
+        <div className="hidden sm:block text-right">
+          <p className="text-[10px] font-bold tracking-widest text-gray-300 group-hover:text-[#b39359] transition-colors">
+            {isExpanded ? 'CLOSE' : 'EXPAND'}
+          </p>
+        </div>
+        {/* 심플한 플러스/마이너스 아이콘 */}
+        <div className="relative w-6 h-6 flex items-center justify-center">
+          <div className="absolute w-full h-[1px] bg-[#2d2d2d]" />
+          <div className={`absolute w-[1px] h-full bg-[#2d2d2d] transition-transform duration-500 ${isExpanded ? 'rotate-90 opacity-0' : ''}`} />
+        </div>
+      </div>
+    </button>
+
+    {/* 펼쳐지는 리스트 영역 */}
+    {isExpanded && (
+      <div className="px-4 pb-16 animate-in fade-in slide-in-from-top-2 duration-500">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 mt-8 mb-16">
+          {checklist.map((item, idx) => (
+            <div 
+              key={idx}
+              onClick={() => handleCheck(idx)}
+              className="flex items-center justify-between py-4 border-b border-gray-50 cursor-pointer group/item"
             >
-              <div className="text-left">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-[1px] bg-[#b39359]/40" />
-                  <span className="text-[10px] font-bold tracking-[0.4em] text-[#b39359] uppercase font-sans">Self Analysis</span>
-                </div>
-                <h2 className="text-2xl md:text-3xl font-light tracking-tight text-[#2d2d2d]">
-                  안면비대칭 <span className="font-serif italic text-[#b39359] ml-1">체크리스트</span>
-                </h2>
-              </div>
+              <span className={`text-[14px] transition-colors ${checkedItems.includes(idx) ? 'text-[#b39359] font-medium' : 'text-gray-500 group-hover/item:text-[#2d2d2d]'}`}>
+                {item}
+              </span>
+              <div className={`w-4 h-4 rounded-full border transition-all ${
+                checkedItems.includes(idx) ? 'bg-[#b39359] border-[#b39359]' : 'border-gray-200'
+              }`} />
+            </div>
+          ))}
+        </div>
 
-              <div className="flex items-center gap-6">
-                <div className="hidden sm:block text-right">
-                  <p className="text-[10px] font-bold tracking-widest text-gray-300 group-hover:text-[#b39359] transition-colors">
-                    {isExpanded ? 'CLOSE' : 'EXPAND'}
-                  </p>
-                </div>
-                <div className="relative w-6 h-6 flex items-center justify-center">
-                  <div className="absolute w-full h-[1px] bg-[#2d2d2d]" />
-                  <div className={`absolute w-[1px] h-full bg-[#2d2d2d] transition-transform duration-500 ${isExpanded ? 'rotate-90 opacity-0' : ''}`} />
-                </div>
+        <div className="max-w-md mx-auto text-center">
+          {showResult ? (
+            <div className="bg-[#fcfaf7] p-10 rounded-2xl animate-in zoom-in-95">
+              <span className="text-[10px] font-bold tracking-[0.3em] text-[#b39359] block mb-2 uppercase">Result</span>
+              <h4 className="text-2xl font-light mb-4">{getResult()}</h4>
+              <p className="text-sm text-gray-400 mb-8 leading-relaxed break-keep">정밀 진단을 통해 본인에게 맞는 교정법을 확인해 보세요.</p>
+              <div className="flex gap-3 justify-center">
+                <Link href="https://m.booking.naver.com/booking/13/bizes/670877" className="px-10 py-4 bg-[#b39359] text-white rounded-full text-[12px] font-bold tracking-widest shadow-lg shadow-[#b39359]/20">예약하기</Link>
+                <button onClick={() => setShowResult(false)} className="px-8 py-4 bg-white border border-gray-200 text-gray-400 rounded-full text-[12px] font-bold">다시하기</button>
               </div>
+            </div>
+          ) : (
+            <button 
+              onClick={() => setShowResult(true)}
+              className="w-full py-5 border border-[#2d2d2d] text-[#2d2d2d] hover:bg-[#2d2d2d] hover:text-white transition-all text-[12px] font-bold tracking-[0.2em] uppercase"
+            >
+              결과 확인하기 ({checkedItems.length})
             </button>
+          )}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
 
-            {isExpanded && (
-              <div className="px-4 pb-16 animate-in fade-in slide-in-from-top-2 duration-500">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 mt-8 mb-16">
-                  {checklist.map((item, idx) => (
-                    <div 
-                      key={idx}
-                      onClick={() => handleCheck(idx)}
-                      className="flex items-center justify-between py-4 border-b border-gray-50 cursor-pointer group/item"
-                    >
-                      <span className={`text-[14px] transition-colors ${checkedItems.includes(idx) ? 'text-[#b39359] font-medium' : 'text-gray-500 group-hover/item:text-[#2d2d2d]'}`}>
-                        {item}
-                      </span>
-                      <div className={`w-4 h-4 rounded-full border transition-all ${
-                        checkedItems.includes(idx) ? 'bg-[#b39359] border-[#b39359]' : 'border-gray-200'
-                      }`} />
-                    </div>
-                  ))}
-                </div>
-
-                <div className="max-w-3xl mx-auto text-center font-sans">
-                  {showResult ? (
-                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000 pt-16 pb-10 px-6 border-t-2 border-[#b39359]">
-                      <div className="flex justify-between items-end mb-12 text-left">
-                        <div>
-                          <span className="text-[10px] font-bold tracking-[0.3em] text-[#b39359] block mb-2 uppercase">Analysis Report</span>
-                          <h4 className="text-3xl md:text-4xl font-light tracking-tighter text-[#2d2d2d] font-serif">
-                            현재 당신의 <span className="italic">균형 지수</span>
-                          </h4>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-5xl font-serif italic text-[#b39359] leading-none">{checkedItems.length}<span className="text-sm text-gray-300 not-italic ml-1 font-sans">/20</span></div>
-                        </div>
-                      </div>
-
-                      <div className="mb-12 relative py-12 border-y border-gray-50 flex flex-col items-center">
-                        <h5 className="text-2xl font-medium text-[#2d2d2d] mb-4 tracking-tight">
-                          {getResult()}
-                        </h5>
-                        <p className="text-sm text-gray-400 leading-loose max-w-sm text-center break-keep">
-                          측정된 데이터에 따르면 골격의 틀어짐이 관찰됩니다. 외형적 변화뿐만 아니라 기능적 비대칭을 함께 교정해야 하는 단계입니다.
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col sm:flex-row items-center justify-center gap-12">
-                        <Link 
-                          href="https://m.booking.naver.com/booking/13/bizes/670877" 
-                          className="group flex items-center gap-4 text-[13px] font-bold tracking-[0.2em] text-[#2d2d2d] hover:text-[#b39359] transition-all"
-                        >
-                          <span>심층 상담 및 진단 예약</span>
-                          <div className="w-8 h-[1px] bg-[#2d2d2d] group-hover:bg-[#b39359] group-hover:w-12 transition-all" />
-                        </Link>
-                        <button 
-                          onClick={() => {setShowResult(false); setCheckedItems([]);}}
-                          className="text-[11px] text-gray-300 hover:text-gray-600 underline underline-offset-4 tracking-widest transition-colors"
-                        >
-                          RESET TEST
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button 
-                      onClick={() => setShowResult(true)}
-                      className="group w-full flex flex-col items-center gap-6 py-10"
-                    >
-                      <div className="flex items-center gap-8">
-                        <div className="h-[1px] w-12 bg-gray-100 group-hover:w-20 group-hover:bg-[#b39359] transition-all duration-700" />
-                        <span className="text-[13px] font-bold tracking-[0.4em] text-gray-400 group-hover:text-[#2d2d2d] transition-colors uppercase">
-                          Result Analysis <span className="font-serif italic ml-1">({checkedItems.length})</span>
-                        </span>
-                        <div className="h-[1px] w-12 bg-gray-100 group-hover:w-20 group-hover:bg-[#b39359] transition-all duration-700" />
-                      </div>
-                    </button>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* --- 치료 원리 --- */}
+        {/* --- 치료 원리 (기존 유지) --- */}
         <section className="flex flex-col lg:flex-row gap-20 items-center">
           <div className="w-full lg:w-1/2 relative h-[500px] rounded-[48px] overflow-hidden shadow-2xl">
             <Image src="/face-asymmetry.jpg" alt="안면분석" fill className="object-cover" />
           </div>
           <div className="w-full lg:w-1/2 space-y-8">
             <div className="inline-block px-4 py-1.5 bg-[#b39359]/10 text-[#b39359] text-[11px] font-bold rounded-full tracking-widest">01. PRINCIPLE</div>
-            <h2 className="text-4xl font-light">입체적인 <span className="text-[#b39359] font-medium italic underline underline-offset-8 decoration-1">4D 통합 교정</span></h2>
+            <h2 className="text-4xl font-light">입체적인 <span className="text-[#b39359] font-medium italic underline underline-offset-8">4D 통합 교정</span></h2>
             <p className="text-gray-500 leading-loose break-keep text-[15px]">얼굴 뼈 정렬부터 근육 밸런스, 처진 연부조직까지 통합적으로 분석하여 수술 없이 자연스러운 대칭을 완성합니다.</p>
             <div className="grid grid-cols-2 gap-8 pt-4">
               {["골격 구조", "근육 밸런스", "조직 리프팅", "유지 관리"].map((item, i) => (
                 <div key={i} className="border-l border-[#b39359]/40 pl-5">
                   <h4 className="font-bold text-sm mb-1">{item}</h4>
-                  <p className="text-[12px] text-gray-400 font-sans">단계별 맞춤형 케어</p>
+                  <p className="text-[12px] text-gray-400">단계별 맞춤형 케어</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* --- 치료 방법 --- */}
+        {/* --- 치료 방법 (기존 유지) --- */}
         <section className="bg-white rounded-[60px] p-16 md:p-24 shadow-sm border border-gray-100 text-center">
           <div className="mb-20">
             <div className="inline-block px-4 py-1.5 bg-[#b39359]/10 text-[#b39359] text-[11px] font-bold rounded-full tracking-widest mb-6 uppercase">02. Method</div>
@@ -232,12 +200,35 @@ export default function FaceAsymmetryPage() {
         </section>
       </main>
 
-      {/* --- CTA --- */}
-      <footer className="bg-[#2d2d2d] py-24 text-center">
-        <h2 className="text-white text-3xl font-light mb-12 tracking-widest italic">"수술 없이, 다시 태어나는 균형의 아름다움"</h2>
-        <div className="flex flex-col sm:flex-row justify-center gap-6 px-6">
-          <Link href="https://m.booking.naver.com/booking/13/bizes/670877" target="_blank" className="px-16 py-6 bg-[#b39359] text-white font-bold rounded-full hover:shadow-[0_0_30px_rgba(179,147,89,0.3)] transition-all text-[13px] tracking-widest uppercase shadow-xl font-sans">Online Booking</Link>
-          <Link href="/" className="px-16 py-6 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-all text-[13px] tracking-widest uppercase font-sans">Main Home</Link>
+      {/* --- SEMI FOOTER (Face Asymmetry) --- */}
+      <footer className="bg-white py-24 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          
+          <h2 className="text-[#2d2d2d] text-xl md:text-2xl font-light mb-10 tracking-tight leading-relaxed">
+            무너진 밸런스를 바로잡고 <br className="md:hidden" />
+            <span className="text-[#b39359] italic font-serif">당신만의 숨겨진 선</span>을 찾으세요
+          </h2>
+
+          <div className="flex justify-center items-center gap-6 mb-12">
+            <Link 
+              href="https://m.booking.naver.com/booking/13/bizes/670877" 
+              target="_blank" 
+              className="text-[12px] font-medium tracking-widest text-[#b39359] hover:opacity-70 transition-opacity font-sans"
+            >
+              안면비대칭 진료 예약하기
+            </Link>
+            
+            <div className="w-[1px] h-3 bg-gray-200" />
+
+            <Link 
+              href="/" 
+              className="text-[12px] font-medium tracking-widest text-gray-400 hover:text-[#2d2d2d] transition-all font-sans"
+            >
+              메인 홈
+            </Link>
+          </div>
+          
+          
         </div>
       </footer>
     </div>

@@ -10,9 +10,10 @@ export const menuData: MenuItem[] = [
     href: "/midas/special",
     children: [
       { title: "MIDAS의 특별함", href: "/midas/special" },
-      { title: "원장소개", href: "/midas/director" },
-      { title: "진료안내 및 예약", href: "https://m.booking.naver.com/booking/13/bizes/670877?theme=place&entry=pll&lang=ko&area=pll" },
-      { title: "한의원 공간 소개", href: "/midas/space" },
+      { title: "원장 소개", href: "/midas/director" },
+      { title: "공간 소개", href: "/midas/space" },
+      { title: "오시는길", href: "/midas/location" },
+      { title: "진료 예약", href: "https://m.booking.naver.com/booking/13/bizes/670877?theme=place&entry=pll&lang=ko&area=pll" },
     ],
   },
   {
@@ -23,42 +24,42 @@ export const menuData: MenuItem[] = [
     ],
   },
   {
-    title: "한방성형·뷰티",
+    title: "한방 성형",
     children: [
-      { title: "리프팅·채움 매선", href: "/beauty/lifting" },
+      { title: "리프팅·채움", href: "/beauty/lifting" },
       { title: "뷰티 약침", href: "/beauty/acupuncture" },
       { title: "다이어트", href: "/beauty/diet" },
     ],
   },
   {
-    title: "체형교정",
+    title: "체형 교정",
     children: [
-      { title: "체형교정", href: "/posture/general" },
-      { title: "거북목", href: "/posture/turtle-neck" },
-      { title: "라운드숄더", href: "/posture/round-shoulder" },
-      { title: "측만", href: "/posture/scoliosis" },
+      { title: "전체 체형 교정", href: "/posture/general" },
+      { title: "거북목 교정", href: "/posture/turtle-neck" },
+      { title: "라운드숄더 교정", href: "/posture/round-shoulder" },
+      { title: "측만증 교정", href: "/posture/scoliosis" },
     ],
   },
   {
-    title: "자동차보험·통증",
+    title: "통증 치료",
     children: [
-      { title: "교통사고 후유증 치료", href: "/insurance/traffic" },
-      { title: "통증치료", href: "/insurance/pain" },
+      { title: "교통사고 후유증", href: "/insurance/traffic" },
+      { title: "통증 치료", href: "/insurance/pain" },
     ],
   },
   {
-    title: "수험생·소아",
+    title: "소아·청소년",
     children: [
-      { title: "소아", href: "/children/pediatric" },
-      { title: "수험생 추나 & 한약", href: "/children/student" },
-      { title: "불안·불면", href: "/children/anxiety" },
+      { title: "소아 한의원", href: "/children/pediatric" },
+      { title: "수험생 건강관리", href: "/children/student" },
+      { title: "불안·불면증", href: "/children/anxiety" },
     ],
   },
   {
-    title: "피부안면",
+    title: "피부 질환",
     children: [
-      { title: "피부질환", href: "/skin/disease" },
-      { title: "안면마비", href: "/skin/paralysis" },
+      { title: "피부 질환 치료", href: "/skin/disease" },
+      { title: "안면 마비 치료", href: "/skin/paralysis" },
     ],
   },
   {
