@@ -88,7 +88,7 @@ export default function LocationPage() {
             </div>
           </section>
 
-          {/* 버스 정보 (간격 타이트하게 조정) */}
+          {/* 버스 정보 */}
           <section className="flex flex-col md:flex-row gap-8 md:gap-20 items-start border-t border-gray-50 pt-16">
             <div className="w-full md:w-[280px] shrink-0">
               <div className="text-[#b39359] font-serif italic text-2xl mb-2">By Bus</div>

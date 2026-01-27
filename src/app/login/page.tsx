@@ -13,6 +13,10 @@ export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
 
+  const handleKakaoLogin = () => {
+    window.location.href = "/api/auth/kakao";
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -29,101 +33,102 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-6">
-        <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900">
-            로그인
-          </h2>
-        </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#fcfaf7] px-6">
+      <div className="max-w-md w-full">
         
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
-              {error}
-            </div>
-          )}
+        {/* 로그인 카드 컨테이너 */}
+        <div className="bg-white p-10 md:p-14 rounded-[2.5rem] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.08)] border border-gray-100">
           
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                이메일
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#e3ba75] focus:border-[#e3ba75] focus:z-10 sm:text-sm"
-                placeholder="이메일 주소"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                비밀번호
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#e3ba75] focus:border-[#e3ba75] focus:z-10 sm:text-sm"
-                placeholder="비밀번호"
-              />
-            </div>
+          {/* 상단 헤더: 미니멀 로고 & 타이틀 */}
+          <div className="text-center space-y-3 mb-12">
+            <Link href="/" className="inline-block">
+              <span className="text-xl font-serif font-light tracking-[0.3em] text-[#2d2d2d]">MIDAS</span>
+            </Link>
+            <h2 className="text-2xl font-serif font-light text-[#2d2d2d]">Sign In</h2>
+            <div className="w-8 h-[1px] bg-[#b39359] mx-auto"></div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-[#e3ba75] focus:ring-[#e3ba75] border-gray-300 rounded"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                로그인 상태 유지
-              </label>
+          <form className="space-y-8" onSubmit={handleSubmit}>
+            {error && (
+              <div className="bg-red-50 border-l-2 border-red-400 text-red-700 px-4 py-3 text-[11px] font-light">
+                {error}
+              </div>
+            )}
+            
+            <div className="space-y-6">
+              {/* Email Input */}
+              <div className="group">
+                <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2 block group-focus-within:text-[#b39359] transition-colors">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full py-3 border-b border-gray-100 focus:border-[#b39359] outline-none text-sm font-light transition-all bg-transparent placeholder:text-gray-200"
+                  placeholder="이메일을 입력하세요"
+                />
+              </div>
+
+              {/* Password Input */}
+              <div className="group">
+                <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2 block group-focus-within:text-[#b39359] transition-colors">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full py-3 border-b border-gray-100 focus:border-[#b39359] outline-none text-sm font-light transition-all bg-transparent placeholder:text-gray-200"
+                  placeholder="비밀번호를 입력하세요"
+                />
+              </div>
             </div>
 
-            <div className="text-sm">
-              <Link
-                href="#"
-                className="font-medium text-[#e3ba75] hover:text-[#d4a865]"
-              >
-                비밀번호를 잊으셨나요?
+            {/* 유틸리티 메뉴 */}
+            <div className="flex items-center justify-between text-[11px] font-light text-gray-500">
+              <label className="flex items-center gap-2 cursor-pointer group">
+                <input type="checkbox" className="w-3 h-3 border-gray-200 rounded accent-[#b39359] focus:ring-0" />
+                <span>Keep me signed in</span>
+              </label>
+              <Link href="#" className="hover:text-[#b39359] transition-colors">
+                Forgot Password?
               </Link>
             </div>
-          </div>
 
-          <div className="text-sm text-right">
-            <Link
-              href="/signup"
-              className="font-medium text-[#e3ba75] hover:text-[#d4a865]"
+            {/* 버튼 섹션 */}
+            <div className="space-y-4 pt-4">
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-4 bg-[#2d2d2d] text-white text-[11px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-[#b39359] transition-all duration-500 shadow-lg shadow-black/5"
+              >
+                {isLoading ? "Signing in..." : "Login"}
+              </button>
+              
+              <button
+                type="button"
+                onClick={handleKakaoLogin}
+                className="w-full py-4 border border-gray-100 text-[#3c1e1e] text-[11px] font-bold tracking-[0.3em] uppercase rounded-full hover:bg-[#fee500] hover:border-[#fee500] transition-all duration-500 flex items-center justify-center gap-2"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-[#fee500]"></div>
+                Kakao Login
+              </button>
+            </div>
+          </form>
+
+          {/* 하단 링크 */}
+          <div className="mt-12 pt-8 border-t border-gray-50 text-center">
+            <Link 
+              href="/signup" 
+              className="text-[10px] font-bold tracking-[0.2em] text-gray-400 hover:text-[#b39359] transition-colors border-b border-transparent hover:border-[#b39359]"
             >
-              회원가입
+              CREATE AN ACCOUNT
             </Link>
           </div>
-
-          <div>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#2d2d2d] hover:bg-[#3a3a3a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e3ba75] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isLoading ? "로그인 중..." : "로그인"}
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );
