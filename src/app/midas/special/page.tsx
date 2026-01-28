@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 
 export default function MidasSpecialPage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,25 +19,6 @@ export default function MidasSpecialPage() {
   return (
     <div style={{ backgroundColor: "#fcfcfc", color: "#1a1a1a", minHeight: "100vh", fontFamily: "serif" }}>
       
-      {/* 상단 고정 헤더 */}
-      <header style={{ 
-        position: "fixed", top: 0, left: 0, width: "100%", height: "80px", zIndex: 100,
-        backgroundColor: "rgba(252, 252, 252, 0.9)", backdropFilter: "blur(10px)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        borderBottom: "1px solid rgba(0,0,0,0.05)",
-        opacity: isLoaded ? 1 : 0, transition: "all 1s ease"
-      }}>
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <h1 style={{ 
-            fontSize: "1.5rem", fontWeight: "300", letterSpacing: "0.3em", color: "#b39359", 
-            margin: 0, cursor: "pointer", transition: "0.3s" 
-          }}
-          onMouseOver={(e) => e.currentTarget.style.opacity = "0.7"}
-          onMouseOut={(e) => e.currentTarget.style.opacity = "1"}
-          >MIDAS</h1>
-        </Link>
-      </header>
-
       <main style={{ maxWidth: "1100px", margin: "0 auto", padding: "140px 24px 100px" }}>
         
         {/* --- BRAND STORY SECTION (새로 추가된 부분) --- */}

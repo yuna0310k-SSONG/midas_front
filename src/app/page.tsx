@@ -44,8 +44,8 @@ export default function Home() {
   return (
     <div className="bg-[#fcfcfc] relative min-h-screen font-serif">
       {/* Hero Section */}
-      <section className="relative max-w-[1920px] mx-auto px-4 lg:px-6 py-6 lg:py-10">
-        <div className="relative rounded-[40px] overflow-hidden h-[85vh] shadow-2xl">
+      <section className="relative w-full py-6 lg:py-10">
+        <div className="relative w-full overflow-hidden h-[85vh]">
           <Swiper
             modules={[Navigation, Autoplay, EffectFade]}
             effect="fade" // 부드러운 전환 효과

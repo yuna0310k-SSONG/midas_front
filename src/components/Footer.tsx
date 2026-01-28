@@ -37,8 +37,20 @@ export default function Footer() {
                 <span className="hover:text-white transition-colors">02-3472-1075</span>
               </li>
               <li className="flex items-center gap-4">
+                <span className="text-[#b39359] w-4 text-center">📠</span>
+                <span className="hover:text-white transition-colors">팩스: 02-3473-1075</span>
+              </li>
+              <li className="flex items-center gap-4">
                 <span className="text-[#b39359] w-4 text-center">✉️</span>
                 <span className="hover:text-white transition-colors">albotalbot@daum.net</span>
+              </li>
+              <li className="flex items-center gap-4">
+                <span className="text-[#b39359] w-4 text-center">🧾</span>
+                <span className="hover:text-white transition-colors">사업자등록번호: 745-57-00640</span>
+              </li>
+              <li className="flex items-center gap-4">
+                <span className="text-[#b39359] w-4 text-center">🩺</span>
+                <span className="hover:text-white transition-colors">대표원장: PARK ALBERT SUNGGU</span>
               </li>
             </ul>
           </div>

@@ -106,7 +106,7 @@ export default function PostureGeneralPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="bg-[#2d2d2d] p-12 rounded-[3rem] text-white space-y-8">
               <div className="w-12 h-12 border border-[#b39359] rounded-full flex items-center justify-center text-[#b39359] font-serif italic text-xl">1</div>
-              <h4 className="text-2xl font-bold italic">추나요법 <br /><span className="text-[#b39359] not-italic text-sm uppercase tracking-widest font-sans font-bold">Chuna Therapy</span></h4>
+              <h4 className="text-2xl font-bold italic">추나요법 <br /><span className="text-[#b39359] not-italic text-sm uppercase tracking-widest font-sans font-bold">Chuna Manual Therapy</span></h4>
               <p className="text-gray-400 text-sm leading-loose font-sans break-keep">
                 한의사가 수기나 보조 기구를 사용하여 틀어진 뼈와 관절을 직접 밀고 당겨 정렬을 바로잡습니다. 비틀린 척추와 골반을 정위치로 환원시켜 신경 압박을 해소합니다.
               </p>
